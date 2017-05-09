@@ -1,10 +1,18 @@
 package model;
 
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
+
 /**
  * Created by Валера on 19.04.2017.
  */
+@MappedSuperclass
 public class NamedEntity extends BaseEntity {
 
+    @NotBlank
+    @Column(name = "name", nullable = false)
     protected String name;
 
     public NamedEntity() {
@@ -25,6 +33,6 @@ public class NamedEntity extends BaseEntity {
 
     @Override
     public String toString() {
-        return String.format("Entity %s (%s, '%s')", getClass().getName(), id, name);
+        return String.format("Entity %s (%s, '%s')", getClass().getName(), getId(), name);
     }
 }
