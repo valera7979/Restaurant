@@ -1,10 +1,10 @@
-DROP TABLE IF EXISTS roles;
-DROP TABLE IF EXISTS deashes;
-DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS restaurants;
 DROP TABLE IF EXISTS votes;
+DROP TABLE IF EXISTS user_roles;
+DROP TABLE IF EXISTS dishes;
+DROP TABLE IF EXISTS restaurants CASCADE;
+DROP TABLE IF EXISTS users;
 
-DROP SEQUENCE IF EXISTS global_seq;
+DROP SEQUENCE IF EXISTS global_seq CASCADE;
 
 CREATE SEQUENCE global_seq START 100000;
 
@@ -29,11 +29,13 @@ CREATE TABLE user_roles
 
 CREATE TABLE "restaurants" (
   id INTEGER  PRIMARY KEY DEFAULT nextval('global_seq'),
-  name varchar NOT NULL
+  name varchar NOT NULL,
+  user_id integer NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 CREATE TABLE "dishes" (
-  id          INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   "restaurant_id" integer NOT NULL,
   "description" TEXT NOT NULL,
   "price" integer NOT NULL,
@@ -42,10 +44,11 @@ CREATE TABLE "dishes" (
 );
 
 CREATE TABLE "votes" (
+  id INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
   "restaurant_id" integer NOT NULL,
-  "date" TIMESTAMP NOT NULL,
+  "date_time" TIMESTAMP NOT NULL,
   "user_id" integer NOT NULL,
   FOREIGN KEY (user_id) REFERENCES users (id),
   FOREIGN KEY (restaurant_id) REFERENCES restaurants (id)
 );
-CREATE UNIQUE INDEX votes_unique_restaurant_date_idx ON votes(restaurant_id, date)
+CREATE UNIQUE INDEX votes_unique_restaurant_date_idx ON votes(restaurant_id, date_time)

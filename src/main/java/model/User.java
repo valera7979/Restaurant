@@ -57,9 +57,9 @@ public class User extends NamedEntity {
     @BatchSize(size = 200)
     private Set<Role> roles;
 
-   /* @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")//, cascade = CascadeType.REMOVE, orphanRemoval = true)
     @OrderBy("dateTime DESC")
-    protected List<Vote> votes;*/
+    protected List<Vote> votes;
 
     public String getEmail() {
         return email;

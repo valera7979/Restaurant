@@ -13,12 +13,12 @@ VALUES ('Admin', 'admin@gmail.com', 'admin');
 
 INSERT INTO user_roles (role, user_id) VALUES
   ('ROLE_USER', 100000),
-  ('ROLE_ADMIN', 100001);
+  ('ROLE_OWNER', 100001);
 
-INSERT  INTO restaurants (name) VALUES
-  ('Cha-cha'),
-  ('Shaverma'),
-  ('PARIS');
+INSERT  INTO restaurants (name, user_id) VALUES
+  ('Cha-cha', 100001),
+  ('Shaverma', 100001),
+  ('PARIS', 100001);
 
 INSERT INTO dishes (restaurant_id, description, price, date_time) VALUES
   (100002, 'fish', 100, '2017-04-30 10:00:00'),
@@ -36,5 +36,5 @@ INSERT INTO dishes (restaurant_id, description, price, date_time) VALUES
   (100004, 'cake', 17, now()),
   (100004, 'Black Tea', 10, now());
 
-INSERT  INTO votes (restaurant_id, date, user_id) VALUES
+INSERT  INTO votes (restaurant_id, date_time, user_id) VALUES
   (100004,now(),100000);
